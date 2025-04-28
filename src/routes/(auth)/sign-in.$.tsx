@@ -7,7 +7,7 @@ export const Route = createFileRoute('/(auth)/sign-in/$')({
 
 function Page() {
   return (
-    <div className="flex justify-center mt-5">
+    <div className="flex justify-center mt-25">
       <SignIn />
     </div>
   )
