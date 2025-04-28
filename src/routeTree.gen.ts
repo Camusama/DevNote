@@ -8,46 +8,36 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
+import { createFileRoute } from '@tanstack/react-router'
+
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as RedirectImport } from './routes/redirect'
-import { Route as PathlessLayoutImport } from './routes/_pathlessLayout'
-import { Route as ExampleImport } from './routes/_example'
 import { Route as AuthedImport } from './routes/_authed'
 import { Route as IndexImport } from './routes/index'
-import { Route as SignUpSplatImport } from './routes/sign-up.$'
-import { Route as SignInSplatImport } from './routes/sign-in.$'
-import { Route as PathlessLayoutNestedLayoutImport } from './routes/_pathlessLayout/_nested-layout'
-import { Route as ExampleDeferredImport } from './routes/_example/deferred'
 import { Route as AuthedNezhaImport } from './routes/_authed/nezha'
-import { Route as ExampleUsersRouteImport } from './routes/_example/users.route'
-import { Route as ExamplePostsRouteImport } from './routes/_example/posts.route'
-import { Route as ExampleUsersIndexImport } from './routes/_example/users.index'
-import { Route as ExamplePostsIndexImport } from './routes/_example/posts.index'
-import { Route as PathlessLayoutNestedLayoutRouteBImport } from './routes/_pathlessLayout/_nested-layout/route-b'
-import { Route as PathlessLayoutNestedLayoutRouteAImport } from './routes/_pathlessLayout/_nested-layout/route-a'
-import { Route as ExampleUsersUserIdImport } from './routes/_example/users.$userId'
-import { Route as ExamplePostsPostIdImport } from './routes/_example/posts.$postId'
-import { Route as ExamplePostsPostIdDeepImport } from './routes/_example/posts_.$postId.deep'
+import { Route as exampleRedirectImport } from './routes/(example)/redirect'
+import { Route as exampleDeferredImport } from './routes/(example)/deferred'
+import { Route as exampleUsersRouteImport } from './routes/(example)/users.route'
+import { Route as examplePostsRouteImport } from './routes/(example)/posts.route'
+import { Route as exampleUsersIndexImport } from './routes/(example)/users.index'
+import { Route as examplePostsIndexImport } from './routes/(example)/posts.index'
+import { Route as exampleUsersUserIdImport } from './routes/(example)/users.$userId'
+import { Route as examplePostsPostIdImport } from './routes/(example)/posts.$postId'
+import { Route as examplePathlessLayoutNestedLayoutImport } from './routes/(example)/_pathlessLayout/_nested-layout'
+import { Route as authSignUpSplatImport } from './routes/(auth)/sign-up.$'
+import { Route as authSignInSplatImport } from './routes/(auth)/sign-in.$'
+import { Route as examplePostsPostIdDeepImport } from './routes/(example)/posts_.$postId.deep'
+import { Route as examplePathlessLayoutNestedLayoutRouteBImport } from './routes/(example)/_pathlessLayout/_nested-layout/route-b'
+import { Route as examplePathlessLayoutNestedLayoutRouteAImport } from './routes/(example)/_pathlessLayout/_nested-layout/route-a'
+
+// Create Virtual Routes
+
+const examplePathlessLayoutImport = createFileRoute(
+  '/(example)/_pathlessLayout',
+)()
 
 // Create/Update Routes
-
-const RedirectRoute = RedirectImport.update({
-  id: '/redirect',
-  path: '/redirect',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const PathlessLayoutRoute = PathlessLayoutImport.update({
-  id: '/_pathlessLayout',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const ExampleRoute = ExampleImport.update({
-  id: '/_example',
-  getParentRoute: () => rootRoute,
-} as any)
 
 const AuthedRoute = AuthedImport.update({
   id: '/_authed',
@@ -60,29 +50,9 @@ const IndexRoute = IndexImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const SignUpSplatRoute = SignUpSplatImport.update({
-  id: '/sign-up/$',
-  path: '/sign-up/$',
+const examplePathlessLayoutRoute = examplePathlessLayoutImport.update({
+  id: '/(example)/_pathlessLayout',
   getParentRoute: () => rootRoute,
-} as any)
-
-const SignInSplatRoute = SignInSplatImport.update({
-  id: '/sign-in/$',
-  path: '/sign-in/$',
-  getParentRoute: () => rootRoute,
-} as any)
-
-const PathlessLayoutNestedLayoutRoute = PathlessLayoutNestedLayoutImport.update(
-  {
-    id: '/_nested-layout',
-    getParentRoute: () => PathlessLayoutRoute,
-  } as any,
-)
-
-const ExampleDeferredRoute = ExampleDeferredImport.update({
-  id: '/deferred',
-  path: '/deferred',
-  getParentRoute: () => ExampleRoute,
 } as any)
 
 const AuthedNezhaRoute = AuthedNezhaImport.update({
@@ -91,61 +61,91 @@ const AuthedNezhaRoute = AuthedNezhaImport.update({
   getParentRoute: () => AuthedRoute,
 } as any)
 
-const ExampleUsersRouteRoute = ExampleUsersRouteImport.update({
-  id: '/users',
+const exampleRedirectRoute = exampleRedirectImport.update({
+  id: '/(example)/redirect',
+  path: '/redirect',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const exampleDeferredRoute = exampleDeferredImport.update({
+  id: '/(example)/deferred',
+  path: '/deferred',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const exampleUsersRouteRoute = exampleUsersRouteImport.update({
+  id: '/(example)/users',
   path: '/users',
-  getParentRoute: () => ExampleRoute,
+  getParentRoute: () => rootRoute,
 } as any)
 
-const ExamplePostsRouteRoute = ExamplePostsRouteImport.update({
-  id: '/posts',
+const examplePostsRouteRoute = examplePostsRouteImport.update({
+  id: '/(example)/posts',
   path: '/posts',
-  getParentRoute: () => ExampleRoute,
+  getParentRoute: () => rootRoute,
 } as any)
 
-const ExampleUsersIndexRoute = ExampleUsersIndexImport.update({
+const exampleUsersIndexRoute = exampleUsersIndexImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => ExampleUsersRouteRoute,
+  getParentRoute: () => exampleUsersRouteRoute,
 } as any)
 
-const ExamplePostsIndexRoute = ExamplePostsIndexImport.update({
+const examplePostsIndexRoute = examplePostsIndexImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => ExamplePostsRouteRoute,
+  getParentRoute: () => examplePostsRouteRoute,
 } as any)
 
-const PathlessLayoutNestedLayoutRouteBRoute =
-  PathlessLayoutNestedLayoutRouteBImport.update({
-    id: '/route-b',
-    path: '/route-b',
-    getParentRoute: () => PathlessLayoutNestedLayoutRoute,
-  } as any)
-
-const PathlessLayoutNestedLayoutRouteARoute =
-  PathlessLayoutNestedLayoutRouteAImport.update({
-    id: '/route-a',
-    path: '/route-a',
-    getParentRoute: () => PathlessLayoutNestedLayoutRoute,
-  } as any)
-
-const ExampleUsersUserIdRoute = ExampleUsersUserIdImport.update({
+const exampleUsersUserIdRoute = exampleUsersUserIdImport.update({
   id: '/$userId',
   path: '/$userId',
-  getParentRoute: () => ExampleUsersRouteRoute,
+  getParentRoute: () => exampleUsersRouteRoute,
 } as any)
 
-const ExamplePostsPostIdRoute = ExamplePostsPostIdImport.update({
+const examplePostsPostIdRoute = examplePostsPostIdImport.update({
   id: '/$postId',
   path: '/$postId',
-  getParentRoute: () => ExamplePostsRouteRoute,
+  getParentRoute: () => examplePostsRouteRoute,
 } as any)
 
-const ExamplePostsPostIdDeepRoute = ExamplePostsPostIdDeepImport.update({
-  id: '/posts_/$postId/deep',
-  path: '/posts/$postId/deep',
-  getParentRoute: () => ExampleRoute,
+const examplePathlessLayoutNestedLayoutRoute =
+  examplePathlessLayoutNestedLayoutImport.update({
+    id: '/_nested-layout',
+    getParentRoute: () => examplePathlessLayoutRoute,
+  } as any)
+
+const authSignUpSplatRoute = authSignUpSplatImport.update({
+  id: '/(auth)/sign-up/$',
+  path: '/sign-up/$',
+  getParentRoute: () => rootRoute,
 } as any)
+
+const authSignInSplatRoute = authSignInSplatImport.update({
+  id: '/(auth)/sign-in/$',
+  path: '/sign-in/$',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const examplePostsPostIdDeepRoute = examplePostsPostIdDeepImport.update({
+  id: '/(example)/posts_/$postId/deep',
+  path: '/posts/$postId/deep',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const examplePathlessLayoutNestedLayoutRouteBRoute =
+  examplePathlessLayoutNestedLayoutRouteBImport.update({
+    id: '/route-b',
+    path: '/route-b',
+    getParentRoute: () => examplePathlessLayoutNestedLayoutRoute,
+  } as any)
+
+const examplePathlessLayoutNestedLayoutRouteARoute =
+  examplePathlessLayoutNestedLayoutRouteAImport.update({
+    id: '/route-a',
+    path: '/route-a',
+    getParentRoute: () => examplePathlessLayoutNestedLayoutRoute,
+  } as any)
 
 // Populate the FileRoutesByPath interface
 
@@ -165,40 +165,33 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthedImport
       parentRoute: typeof rootRoute
     }
-    '/_example': {
-      id: '/_example'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof ExampleImport
-      parentRoute: typeof rootRoute
-    }
-    '/_pathlessLayout': {
-      id: '/_pathlessLayout'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof PathlessLayoutImport
-      parentRoute: typeof rootRoute
-    }
-    '/redirect': {
-      id: '/redirect'
-      path: '/redirect'
-      fullPath: '/redirect'
-      preLoaderRoute: typeof RedirectImport
-      parentRoute: typeof rootRoute
-    }
-    '/_example/posts': {
-      id: '/_example/posts'
+    '/(example)/posts': {
+      id: '/(example)/posts'
       path: '/posts'
       fullPath: '/posts'
-      preLoaderRoute: typeof ExamplePostsRouteImport
-      parentRoute: typeof ExampleImport
+      preLoaderRoute: typeof examplePostsRouteImport
+      parentRoute: typeof rootRoute
     }
-    '/_example/users': {
-      id: '/_example/users'
+    '/(example)/users': {
+      id: '/(example)/users'
       path: '/users'
       fullPath: '/users'
-      preLoaderRoute: typeof ExampleUsersRouteImport
-      parentRoute: typeof ExampleImport
+      preLoaderRoute: typeof exampleUsersRouteImport
+      parentRoute: typeof rootRoute
+    }
+    '/(example)/deferred': {
+      id: '/(example)/deferred'
+      path: '/deferred'
+      fullPath: '/deferred'
+      preLoaderRoute: typeof exampleDeferredImport
+      parentRoute: typeof rootRoute
+    }
+    '/(example)/redirect': {
+      id: '/(example)/redirect'
+      path: '/redirect'
+      fullPath: '/redirect'
+      preLoaderRoute: typeof exampleRedirectImport
+      parentRoute: typeof rootRoute
     }
     '/_authed/nezha': {
       id: '/_authed/nezha'
@@ -207,82 +200,82 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthedNezhaImport
       parentRoute: typeof AuthedImport
     }
-    '/_example/deferred': {
-      id: '/_example/deferred'
-      path: '/deferred'
-      fullPath: '/deferred'
-      preLoaderRoute: typeof ExampleDeferredImport
-      parentRoute: typeof ExampleImport
-    }
-    '/_pathlessLayout/_nested-layout': {
-      id: '/_pathlessLayout/_nested-layout'
-      path: ''
-      fullPath: ''
-      preLoaderRoute: typeof PathlessLayoutNestedLayoutImport
-      parentRoute: typeof PathlessLayoutImport
-    }
-    '/sign-in/$': {
-      id: '/sign-in/$'
+    '/(auth)/sign-in/$': {
+      id: '/(auth)/sign-in/$'
       path: '/sign-in/$'
       fullPath: '/sign-in/$'
-      preLoaderRoute: typeof SignInSplatImport
+      preLoaderRoute: typeof authSignInSplatImport
       parentRoute: typeof rootRoute
     }
-    '/sign-up/$': {
-      id: '/sign-up/$'
+    '/(auth)/sign-up/$': {
+      id: '/(auth)/sign-up/$'
       path: '/sign-up/$'
       fullPath: '/sign-up/$'
-      preLoaderRoute: typeof SignUpSplatImport
+      preLoaderRoute: typeof authSignUpSplatImport
       parentRoute: typeof rootRoute
     }
-    '/_example/posts/$postId': {
-      id: '/_example/posts/$postId'
+    '/(example)/_pathlessLayout': {
+      id: '/(example)/_pathlessLayout'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof examplePathlessLayoutImport
+      parentRoute: typeof rootRoute
+    }
+    '/(example)/_pathlessLayout/_nested-layout': {
+      id: '/(example)/_pathlessLayout/_nested-layout'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof examplePathlessLayoutNestedLayoutImport
+      parentRoute: typeof examplePathlessLayoutRoute
+    }
+    '/(example)/posts/$postId': {
+      id: '/(example)/posts/$postId'
       path: '/$postId'
       fullPath: '/posts/$postId'
-      preLoaderRoute: typeof ExamplePostsPostIdImport
-      parentRoute: typeof ExamplePostsRouteImport
+      preLoaderRoute: typeof examplePostsPostIdImport
+      parentRoute: typeof examplePostsRouteImport
     }
-    '/_example/users/$userId': {
-      id: '/_example/users/$userId'
+    '/(example)/users/$userId': {
+      id: '/(example)/users/$userId'
       path: '/$userId'
       fullPath: '/users/$userId'
-      preLoaderRoute: typeof ExampleUsersUserIdImport
-      parentRoute: typeof ExampleUsersRouteImport
+      preLoaderRoute: typeof exampleUsersUserIdImport
+      parentRoute: typeof exampleUsersRouteImport
     }
-    '/_pathlessLayout/_nested-layout/route-a': {
-      id: '/_pathlessLayout/_nested-layout/route-a'
-      path: '/route-a'
-      fullPath: '/route-a'
-      preLoaderRoute: typeof PathlessLayoutNestedLayoutRouteAImport
-      parentRoute: typeof PathlessLayoutNestedLayoutImport
-    }
-    '/_pathlessLayout/_nested-layout/route-b': {
-      id: '/_pathlessLayout/_nested-layout/route-b'
-      path: '/route-b'
-      fullPath: '/route-b'
-      preLoaderRoute: typeof PathlessLayoutNestedLayoutRouteBImport
-      parentRoute: typeof PathlessLayoutNestedLayoutImport
-    }
-    '/_example/posts/': {
-      id: '/_example/posts/'
+    '/(example)/posts/': {
+      id: '/(example)/posts/'
       path: '/'
       fullPath: '/posts/'
-      preLoaderRoute: typeof ExamplePostsIndexImport
-      parentRoute: typeof ExamplePostsRouteImport
+      preLoaderRoute: typeof examplePostsIndexImport
+      parentRoute: typeof examplePostsRouteImport
     }
-    '/_example/users/': {
-      id: '/_example/users/'
+    '/(example)/users/': {
+      id: '/(example)/users/'
       path: '/'
       fullPath: '/users/'
-      preLoaderRoute: typeof ExampleUsersIndexImport
-      parentRoute: typeof ExampleUsersRouteImport
+      preLoaderRoute: typeof exampleUsersIndexImport
+      parentRoute: typeof exampleUsersRouteImport
     }
-    '/_example/posts_/$postId/deep': {
-      id: '/_example/posts_/$postId/deep'
+    '/(example)/_pathlessLayout/_nested-layout/route-a': {
+      id: '/(example)/_pathlessLayout/_nested-layout/route-a'
+      path: '/route-a'
+      fullPath: '/route-a'
+      preLoaderRoute: typeof examplePathlessLayoutNestedLayoutRouteAImport
+      parentRoute: typeof examplePathlessLayoutNestedLayoutImport
+    }
+    '/(example)/_pathlessLayout/_nested-layout/route-b': {
+      id: '/(example)/_pathlessLayout/_nested-layout/route-b'
+      path: '/route-b'
+      fullPath: '/route-b'
+      preLoaderRoute: typeof examplePathlessLayoutNestedLayoutRouteBImport
+      parentRoute: typeof examplePathlessLayoutNestedLayoutImport
+    }
+    '/(example)/posts_/$postId/deep': {
+      id: '/(example)/posts_/$postId/deep'
       path: '/posts/$postId/deep'
       fullPath: '/posts/$postId/deep'
-      preLoaderRoute: typeof ExamplePostsPostIdDeepImport
-      parentRoute: typeof ExampleImport
+      preLoaderRoute: typeof examplePostsPostIdDeepImport
+      parentRoute: typeof rootRoute
     }
   }
 }
@@ -300,136 +293,120 @@ const AuthedRouteChildren: AuthedRouteChildren = {
 const AuthedRouteWithChildren =
   AuthedRoute._addFileChildren(AuthedRouteChildren)
 
-interface ExamplePostsRouteRouteChildren {
-  ExamplePostsPostIdRoute: typeof ExamplePostsPostIdRoute
-  ExamplePostsIndexRoute: typeof ExamplePostsIndexRoute
+interface examplePostsRouteRouteChildren {
+  examplePostsPostIdRoute: typeof examplePostsPostIdRoute
+  examplePostsIndexRoute: typeof examplePostsIndexRoute
 }
 
-const ExamplePostsRouteRouteChildren: ExamplePostsRouteRouteChildren = {
-  ExamplePostsPostIdRoute: ExamplePostsPostIdRoute,
-  ExamplePostsIndexRoute: ExamplePostsIndexRoute,
+const examplePostsRouteRouteChildren: examplePostsRouteRouteChildren = {
+  examplePostsPostIdRoute: examplePostsPostIdRoute,
+  examplePostsIndexRoute: examplePostsIndexRoute,
 }
 
-const ExamplePostsRouteRouteWithChildren =
-  ExamplePostsRouteRoute._addFileChildren(ExamplePostsRouteRouteChildren)
+const examplePostsRouteRouteWithChildren =
+  examplePostsRouteRoute._addFileChildren(examplePostsRouteRouteChildren)
 
-interface ExampleUsersRouteRouteChildren {
-  ExampleUsersUserIdRoute: typeof ExampleUsersUserIdRoute
-  ExampleUsersIndexRoute: typeof ExampleUsersIndexRoute
+interface exampleUsersRouteRouteChildren {
+  exampleUsersUserIdRoute: typeof exampleUsersUserIdRoute
+  exampleUsersIndexRoute: typeof exampleUsersIndexRoute
 }
 
-const ExampleUsersRouteRouteChildren: ExampleUsersRouteRouteChildren = {
-  ExampleUsersUserIdRoute: ExampleUsersUserIdRoute,
-  ExampleUsersIndexRoute: ExampleUsersIndexRoute,
+const exampleUsersRouteRouteChildren: exampleUsersRouteRouteChildren = {
+  exampleUsersUserIdRoute: exampleUsersUserIdRoute,
+  exampleUsersIndexRoute: exampleUsersIndexRoute,
 }
 
-const ExampleUsersRouteRouteWithChildren =
-  ExampleUsersRouteRoute._addFileChildren(ExampleUsersRouteRouteChildren)
+const exampleUsersRouteRouteWithChildren =
+  exampleUsersRouteRoute._addFileChildren(exampleUsersRouteRouteChildren)
 
-interface ExampleRouteChildren {
-  ExamplePostsRouteRoute: typeof ExamplePostsRouteRouteWithChildren
-  ExampleUsersRouteRoute: typeof ExampleUsersRouteRouteWithChildren
-  ExampleDeferredRoute: typeof ExampleDeferredRoute
-  ExamplePostsPostIdDeepRoute: typeof ExamplePostsPostIdDeepRoute
+interface examplePathlessLayoutNestedLayoutRouteChildren {
+  examplePathlessLayoutNestedLayoutRouteARoute: typeof examplePathlessLayoutNestedLayoutRouteARoute
+  examplePathlessLayoutNestedLayoutRouteBRoute: typeof examplePathlessLayoutNestedLayoutRouteBRoute
 }
 
-const ExampleRouteChildren: ExampleRouteChildren = {
-  ExamplePostsRouteRoute: ExamplePostsRouteRouteWithChildren,
-  ExampleUsersRouteRoute: ExampleUsersRouteRouteWithChildren,
-  ExampleDeferredRoute: ExampleDeferredRoute,
-  ExamplePostsPostIdDeepRoute: ExamplePostsPostIdDeepRoute,
-}
-
-const ExampleRouteWithChildren =
-  ExampleRoute._addFileChildren(ExampleRouteChildren)
-
-interface PathlessLayoutNestedLayoutRouteChildren {
-  PathlessLayoutNestedLayoutRouteARoute: typeof PathlessLayoutNestedLayoutRouteARoute
-  PathlessLayoutNestedLayoutRouteBRoute: typeof PathlessLayoutNestedLayoutRouteBRoute
-}
-
-const PathlessLayoutNestedLayoutRouteChildren: PathlessLayoutNestedLayoutRouteChildren =
+const examplePathlessLayoutNestedLayoutRouteChildren: examplePathlessLayoutNestedLayoutRouteChildren =
   {
-    PathlessLayoutNestedLayoutRouteARoute:
-      PathlessLayoutNestedLayoutRouteARoute,
-    PathlessLayoutNestedLayoutRouteBRoute:
-      PathlessLayoutNestedLayoutRouteBRoute,
+    examplePathlessLayoutNestedLayoutRouteARoute:
+      examplePathlessLayoutNestedLayoutRouteARoute,
+    examplePathlessLayoutNestedLayoutRouteBRoute:
+      examplePathlessLayoutNestedLayoutRouteBRoute,
   }
 
-const PathlessLayoutNestedLayoutRouteWithChildren =
-  PathlessLayoutNestedLayoutRoute._addFileChildren(
-    PathlessLayoutNestedLayoutRouteChildren,
+const examplePathlessLayoutNestedLayoutRouteWithChildren =
+  examplePathlessLayoutNestedLayoutRoute._addFileChildren(
+    examplePathlessLayoutNestedLayoutRouteChildren,
   )
 
-interface PathlessLayoutRouteChildren {
-  PathlessLayoutNestedLayoutRoute: typeof PathlessLayoutNestedLayoutRouteWithChildren
+interface examplePathlessLayoutRouteChildren {
+  examplePathlessLayoutNestedLayoutRoute: typeof examplePathlessLayoutNestedLayoutRouteWithChildren
 }
 
-const PathlessLayoutRouteChildren: PathlessLayoutRouteChildren = {
-  PathlessLayoutNestedLayoutRoute: PathlessLayoutNestedLayoutRouteWithChildren,
+const examplePathlessLayoutRouteChildren: examplePathlessLayoutRouteChildren = {
+  examplePathlessLayoutNestedLayoutRoute:
+    examplePathlessLayoutNestedLayoutRouteWithChildren,
 }
 
-const PathlessLayoutRouteWithChildren = PathlessLayoutRoute._addFileChildren(
-  PathlessLayoutRouteChildren,
-)
+const examplePathlessLayoutRouteWithChildren =
+  examplePathlessLayoutRoute._addFileChildren(
+    examplePathlessLayoutRouteChildren,
+  )
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '': typeof PathlessLayoutNestedLayoutRouteWithChildren
-  '/redirect': typeof RedirectRoute
-  '/posts': typeof ExamplePostsRouteRouteWithChildren
-  '/users': typeof ExampleUsersRouteRouteWithChildren
+  '/': typeof examplePathlessLayoutNestedLayoutRouteWithChildren
+  '': typeof AuthedRouteWithChildren
+  '/posts': typeof examplePostsRouteRouteWithChildren
+  '/users': typeof exampleUsersRouteRouteWithChildren
+  '/deferred': typeof exampleDeferredRoute
+  '/redirect': typeof exampleRedirectRoute
   '/nezha': typeof AuthedNezhaRoute
-  '/deferred': typeof ExampleDeferredRoute
-  '/sign-in/$': typeof SignInSplatRoute
-  '/sign-up/$': typeof SignUpSplatRoute
-  '/posts/$postId': typeof ExamplePostsPostIdRoute
-  '/users/$userId': typeof ExampleUsersUserIdRoute
-  '/route-a': typeof PathlessLayoutNestedLayoutRouteARoute
-  '/route-b': typeof PathlessLayoutNestedLayoutRouteBRoute
-  '/posts/': typeof ExamplePostsIndexRoute
-  '/users/': typeof ExampleUsersIndexRoute
-  '/posts/$postId/deep': typeof ExamplePostsPostIdDeepRoute
+  '/sign-in/$': typeof authSignInSplatRoute
+  '/sign-up/$': typeof authSignUpSplatRoute
+  '/posts/$postId': typeof examplePostsPostIdRoute
+  '/users/$userId': typeof exampleUsersUserIdRoute
+  '/posts/': typeof examplePostsIndexRoute
+  '/users/': typeof exampleUsersIndexRoute
+  '/route-a': typeof examplePathlessLayoutNestedLayoutRouteARoute
+  '/route-b': typeof examplePathlessLayoutNestedLayoutRouteBRoute
+  '/posts/$postId/deep': typeof examplePostsPostIdDeepRoute
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '': typeof PathlessLayoutNestedLayoutRouteWithChildren
-  '/redirect': typeof RedirectRoute
+  '/': typeof examplePathlessLayoutNestedLayoutRouteWithChildren
+  '': typeof AuthedRouteWithChildren
+  '/deferred': typeof exampleDeferredRoute
+  '/redirect': typeof exampleRedirectRoute
   '/nezha': typeof AuthedNezhaRoute
-  '/deferred': typeof ExampleDeferredRoute
-  '/sign-in/$': typeof SignInSplatRoute
-  '/sign-up/$': typeof SignUpSplatRoute
-  '/posts/$postId': typeof ExamplePostsPostIdRoute
-  '/users/$userId': typeof ExampleUsersUserIdRoute
-  '/route-a': typeof PathlessLayoutNestedLayoutRouteARoute
-  '/route-b': typeof PathlessLayoutNestedLayoutRouteBRoute
-  '/posts': typeof ExamplePostsIndexRoute
-  '/users': typeof ExampleUsersIndexRoute
-  '/posts/$postId/deep': typeof ExamplePostsPostIdDeepRoute
+  '/sign-in/$': typeof authSignInSplatRoute
+  '/sign-up/$': typeof authSignUpSplatRoute
+  '/posts/$postId': typeof examplePostsPostIdRoute
+  '/users/$userId': typeof exampleUsersUserIdRoute
+  '/posts': typeof examplePostsIndexRoute
+  '/users': typeof exampleUsersIndexRoute
+  '/route-a': typeof examplePathlessLayoutNestedLayoutRouteARoute
+  '/route-b': typeof examplePathlessLayoutNestedLayoutRouteBRoute
+  '/posts/$postId/deep': typeof examplePostsPostIdDeepRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexRoute
   '/_authed': typeof AuthedRouteWithChildren
-  '/_example': typeof ExampleRouteWithChildren
-  '/_pathlessLayout': typeof PathlessLayoutRouteWithChildren
-  '/redirect': typeof RedirectRoute
-  '/_example/posts': typeof ExamplePostsRouteRouteWithChildren
-  '/_example/users': typeof ExampleUsersRouteRouteWithChildren
+  '/(example)/posts': typeof examplePostsRouteRouteWithChildren
+  '/(example)/users': typeof exampleUsersRouteRouteWithChildren
+  '/(example)/deferred': typeof exampleDeferredRoute
+  '/(example)/redirect': typeof exampleRedirectRoute
   '/_authed/nezha': typeof AuthedNezhaRoute
-  '/_example/deferred': typeof ExampleDeferredRoute
-  '/_pathlessLayout/_nested-layout': typeof PathlessLayoutNestedLayoutRouteWithChildren
-  '/sign-in/$': typeof SignInSplatRoute
-  '/sign-up/$': typeof SignUpSplatRoute
-  '/_example/posts/$postId': typeof ExamplePostsPostIdRoute
-  '/_example/users/$userId': typeof ExampleUsersUserIdRoute
-  '/_pathlessLayout/_nested-layout/route-a': typeof PathlessLayoutNestedLayoutRouteARoute
-  '/_pathlessLayout/_nested-layout/route-b': typeof PathlessLayoutNestedLayoutRouteBRoute
-  '/_example/posts/': typeof ExamplePostsIndexRoute
-  '/_example/users/': typeof ExampleUsersIndexRoute
-  '/_example/posts_/$postId/deep': typeof ExamplePostsPostIdDeepRoute
+  '/(auth)/sign-in/$': typeof authSignInSplatRoute
+  '/(auth)/sign-up/$': typeof authSignUpSplatRoute
+  '/(example)/_pathlessLayout': typeof examplePathlessLayoutRouteWithChildren
+  '/(example)/_pathlessLayout/_nested-layout': typeof examplePathlessLayoutNestedLayoutRouteWithChildren
+  '/(example)/posts/$postId': typeof examplePostsPostIdRoute
+  '/(example)/users/$userId': typeof exampleUsersUserIdRoute
+  '/(example)/posts/': typeof examplePostsIndexRoute
+  '/(example)/users/': typeof exampleUsersIndexRoute
+  '/(example)/_pathlessLayout/_nested-layout/route-a': typeof examplePathlessLayoutNestedLayoutRouteARoute
+  '/(example)/_pathlessLayout/_nested-layout/route-b': typeof examplePathlessLayoutNestedLayoutRouteBRoute
+  '/(example)/posts_/$postId/deep': typeof examplePostsPostIdDeepRoute
 }
 
 export interface FileRouteTypes {
@@ -437,78 +414,83 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | ''
-    | '/redirect'
     | '/posts'
     | '/users'
-    | '/nezha'
     | '/deferred'
+    | '/redirect'
+    | '/nezha'
     | '/sign-in/$'
     | '/sign-up/$'
     | '/posts/$postId'
     | '/users/$userId'
-    | '/route-a'
-    | '/route-b'
     | '/posts/'
     | '/users/'
+    | '/route-a'
+    | '/route-b'
     | '/posts/$postId/deep'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | ''
+    | '/deferred'
     | '/redirect'
     | '/nezha'
-    | '/deferred'
     | '/sign-in/$'
     | '/sign-up/$'
     | '/posts/$postId'
     | '/users/$userId'
-    | '/route-a'
-    | '/route-b'
     | '/posts'
     | '/users'
+    | '/route-a'
+    | '/route-b'
     | '/posts/$postId/deep'
   id:
     | '__root__'
     | '/'
     | '/_authed'
-    | '/_example'
-    | '/_pathlessLayout'
-    | '/redirect'
-    | '/_example/posts'
-    | '/_example/users'
+    | '/(example)/posts'
+    | '/(example)/users'
+    | '/(example)/deferred'
+    | '/(example)/redirect'
     | '/_authed/nezha'
-    | '/_example/deferred'
-    | '/_pathlessLayout/_nested-layout'
-    | '/sign-in/$'
-    | '/sign-up/$'
-    | '/_example/posts/$postId'
-    | '/_example/users/$userId'
-    | '/_pathlessLayout/_nested-layout/route-a'
-    | '/_pathlessLayout/_nested-layout/route-b'
-    | '/_example/posts/'
-    | '/_example/users/'
-    | '/_example/posts_/$postId/deep'
+    | '/(auth)/sign-in/$'
+    | '/(auth)/sign-up/$'
+    | '/(example)/_pathlessLayout'
+    | '/(example)/_pathlessLayout/_nested-layout'
+    | '/(example)/posts/$postId'
+    | '/(example)/users/$userId'
+    | '/(example)/posts/'
+    | '/(example)/users/'
+    | '/(example)/_pathlessLayout/_nested-layout/route-a'
+    | '/(example)/_pathlessLayout/_nested-layout/route-b'
+    | '/(example)/posts_/$postId/deep'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthedRoute: typeof AuthedRouteWithChildren
-  ExampleRoute: typeof ExampleRouteWithChildren
-  PathlessLayoutRoute: typeof PathlessLayoutRouteWithChildren
-  RedirectRoute: typeof RedirectRoute
-  SignInSplatRoute: typeof SignInSplatRoute
-  SignUpSplatRoute: typeof SignUpSplatRoute
+  examplePostsRouteRoute: typeof examplePostsRouteRouteWithChildren
+  exampleUsersRouteRoute: typeof exampleUsersRouteRouteWithChildren
+  exampleDeferredRoute: typeof exampleDeferredRoute
+  exampleRedirectRoute: typeof exampleRedirectRoute
+  authSignInSplatRoute: typeof authSignInSplatRoute
+  authSignUpSplatRoute: typeof authSignUpSplatRoute
+  examplePathlessLayoutRoute: typeof examplePathlessLayoutRouteWithChildren
+  examplePostsPostIdDeepRoute: typeof examplePostsPostIdDeepRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthedRoute: AuthedRouteWithChildren,
-  ExampleRoute: ExampleRouteWithChildren,
-  PathlessLayoutRoute: PathlessLayoutRouteWithChildren,
-  RedirectRoute: RedirectRoute,
-  SignInSplatRoute: SignInSplatRoute,
-  SignUpSplatRoute: SignUpSplatRoute,
+  examplePostsRouteRoute: examplePostsRouteRouteWithChildren,
+  exampleUsersRouteRoute: exampleUsersRouteRouteWithChildren,
+  exampleDeferredRoute: exampleDeferredRoute,
+  exampleRedirectRoute: exampleRedirectRoute,
+  authSignInSplatRoute: authSignInSplatRoute,
+  authSignUpSplatRoute: authSignUpSplatRoute,
+  examplePathlessLayoutRoute: examplePathlessLayoutRouteWithChildren,
+  examplePostsPostIdDeepRoute: examplePostsPostIdDeepRoute,
 }
 
 export const routeTree = rootRoute
@@ -523,11 +505,14 @@ export const routeTree = rootRoute
       "children": [
         "/",
         "/_authed",
-        "/_example",
-        "/_pathlessLayout",
-        "/redirect",
-        "/sign-in/$",
-        "/sign-up/$"
+        "/(example)/posts",
+        "/(example)/users",
+        "/(example)/deferred",
+        "/(example)/redirect",
+        "/(auth)/sign-in/$",
+        "/(auth)/sign-up/$",
+        "/(example)/_pathlessLayout",
+        "/(example)/posts_/$postId/deep"
       ]
     },
     "/": {
@@ -539,89 +524,76 @@ export const routeTree = rootRoute
         "/_authed/nezha"
       ]
     },
-    "/_example": {
-      "filePath": "_example.tsx",
+    "/(example)/posts": {
+      "filePath": "(example)/posts.route.tsx",
       "children": [
-        "/_example/posts",
-        "/_example/users",
-        "/_example/deferred",
-        "/_example/posts_/$postId/deep"
+        "/(example)/posts/$postId",
+        "/(example)/posts/"
       ]
     },
-    "/_pathlessLayout": {
-      "filePath": "_pathlessLayout.tsx",
+    "/(example)/users": {
+      "filePath": "(example)/users.route.tsx",
       "children": [
-        "/_pathlessLayout/_nested-layout"
+        "/(example)/users/$userId",
+        "/(example)/users/"
       ]
     },
-    "/redirect": {
-      "filePath": "redirect.tsx"
+    "/(example)/deferred": {
+      "filePath": "(example)/deferred.tsx"
     },
-    "/_example/posts": {
-      "filePath": "_example/posts.route.tsx",
-      "parent": "/_example",
-      "children": [
-        "/_example/posts/$postId",
-        "/_example/posts/"
-      ]
-    },
-    "/_example/users": {
-      "filePath": "_example/users.route.tsx",
-      "parent": "/_example",
-      "children": [
-        "/_example/users/$userId",
-        "/_example/users/"
-      ]
+    "/(example)/redirect": {
+      "filePath": "(example)/redirect.tsx"
     },
     "/_authed/nezha": {
       "filePath": "_authed/nezha.tsx",
       "parent": "/_authed"
     },
-    "/_example/deferred": {
-      "filePath": "_example/deferred.tsx",
-      "parent": "/_example"
+    "/(auth)/sign-in/$": {
+      "filePath": "(auth)/sign-in.$.tsx"
     },
-    "/_pathlessLayout/_nested-layout": {
-      "filePath": "_pathlessLayout/_nested-layout.tsx",
-      "parent": "/_pathlessLayout",
+    "/(auth)/sign-up/$": {
+      "filePath": "(auth)/sign-up.$.tsx"
+    },
+    "/(example)/_pathlessLayout": {
+      "filePath": "(example)/_pathlessLayout",
       "children": [
-        "/_pathlessLayout/_nested-layout/route-a",
-        "/_pathlessLayout/_nested-layout/route-b"
+        "/(example)/_pathlessLayout/_nested-layout"
       ]
     },
-    "/sign-in/$": {
-      "filePath": "sign-in.$.tsx"
+    "/(example)/_pathlessLayout/_nested-layout": {
+      "filePath": "(example)/_pathlessLayout/_nested-layout.tsx",
+      "parent": "/(example)/_pathlessLayout",
+      "children": [
+        "/(example)/_pathlessLayout/_nested-layout/route-a",
+        "/(example)/_pathlessLayout/_nested-layout/route-b"
+      ]
     },
-    "/sign-up/$": {
-      "filePath": "sign-up.$.tsx"
+    "/(example)/posts/$postId": {
+      "filePath": "(example)/posts.$postId.tsx",
+      "parent": "/(example)/posts"
     },
-    "/_example/posts/$postId": {
-      "filePath": "_example/posts.$postId.tsx",
-      "parent": "/_example/posts"
+    "/(example)/users/$userId": {
+      "filePath": "(example)/users.$userId.tsx",
+      "parent": "/(example)/users"
     },
-    "/_example/users/$userId": {
-      "filePath": "_example/users.$userId.tsx",
-      "parent": "/_example/users"
+    "/(example)/posts/": {
+      "filePath": "(example)/posts.index.tsx",
+      "parent": "/(example)/posts"
     },
-    "/_pathlessLayout/_nested-layout/route-a": {
-      "filePath": "_pathlessLayout/_nested-layout/route-a.tsx",
-      "parent": "/_pathlessLayout/_nested-layout"
+    "/(example)/users/": {
+      "filePath": "(example)/users.index.tsx",
+      "parent": "/(example)/users"
     },
-    "/_pathlessLayout/_nested-layout/route-b": {
-      "filePath": "_pathlessLayout/_nested-layout/route-b.tsx",
-      "parent": "/_pathlessLayout/_nested-layout"
+    "/(example)/_pathlessLayout/_nested-layout/route-a": {
+      "filePath": "(example)/_pathlessLayout/_nested-layout/route-a.tsx",
+      "parent": "/(example)/_pathlessLayout/_nested-layout"
     },
-    "/_example/posts/": {
-      "filePath": "_example/posts.index.tsx",
-      "parent": "/_example/posts"
+    "/(example)/_pathlessLayout/_nested-layout/route-b": {
+      "filePath": "(example)/_pathlessLayout/_nested-layout/route-b.tsx",
+      "parent": "/(example)/_pathlessLayout/_nested-layout"
     },
-    "/_example/users/": {
-      "filePath": "_example/users.index.tsx",
-      "parent": "/_example/users"
-    },
-    "/_example/posts_/$postId/deep": {
-      "filePath": "_example/posts_.$postId.deep.tsx",
-      "parent": "/_example"
+    "/(example)/posts_/$postId/deep": {
+      "filePath": "(example)/posts_.$postId.deep.tsx"
     }
   }
 }

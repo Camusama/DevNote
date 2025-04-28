@@ -3,7 +3,7 @@ import { fetchPost } from '@/utils/posts'
 import { NotFound } from '@/components/NotFound'
 import { PostErrorComponent } from '@/components/PostError'
 
-export const Route = createFileRoute('/_example/posts/$postId')({
+export const Route = createFileRoute('/(example)/posts/$postId')({
   loader: ({ params: { postId } }) => fetchPost({ data: postId }),
   errorComponent: PostErrorComponent,
   component: PostComponent,

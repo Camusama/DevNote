@@ -2,7 +2,7 @@ import { Link, Outlet, createFileRoute } from '@tanstack/react-router'
 import { DEPLOY_URL } from '@/utils/users'
 import type { User } from '@/utils/users'
 
-export const Route = createFileRoute('/_example/users')({
+export const Route = createFileRoute('/(example)/users')({
   loader: async () => {
     try {
       const res = await fetch(DEPLOY_URL + '/api/users')
