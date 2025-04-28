@@ -1,4 +1,5 @@
 import { AppSidebar } from '@/components/app-sidebar'
+import { data } from '@/components/app-sidebar'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -10,7 +11,32 @@ import {
 import { Separator } from '@/components/ui/separator'
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
 import { Toaster } from '@/components/ui/sonner'
+import { useRouterState } from '@tanstack/react-router'
+import { useMemo } from 'react'
 export const ConsoleLayout = ({ children }: { children: React.ReactNode }) => {
+  const routerState = useRouterState()
+  const currentPath = routerState.location.pathname
+
+  const breadcrumbData = useMemo(() => {
+    let parentTitle = ''
+    let currentTitle = ''
+
+    for (const navGroup of data.navMain) {
+      for (const item of navGroup.items || []) {
+        if (item.url === currentPath) {
+          parentTitle = navGroup.title
+          currentTitle = item.title
+          return { parentTitle, currentTitle, parentUrl: navGroup.url }
+        }
+      }
+
+      if (navGroup.url === currentPath) {
+        return { parentTitle: '', currentTitle: navGroup.title, parentUrl: '/' }
+      }
+    }
+
+    return { parentTitle: '', currentTitle: 'Home', parentUrl: '/' }
+  }, [currentPath])
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -21,12 +47,18 @@ export const ConsoleLayout = ({ children }: { children: React.ReactNode }) => {
             <Separator orientation="vertical" className="mr-2 h-4" />
             <Breadcrumb>
               <BreadcrumbList>
-                <BreadcrumbItem className="hidden md:block">
-                  <BreadcrumbLink href="/">Building Your Application</BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator className="hidden md:block" />
+                {breadcrumbData.parentTitle && (
+                  <>
+                    <BreadcrumbItem className="hidden md:block">
+                      <BreadcrumbLink href={breadcrumbData.parentUrl}>
+                        {breadcrumbData.parentTitle}
+                      </BreadcrumbLink>
+                    </BreadcrumbItem>
+                    <BreadcrumbSeparator className="hidden md:block" />
+                  </>
+                )}
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Data Fetching</BreadcrumbPage>
+                  <BreadcrumbPage>{breadcrumbData.currentTitle}</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>

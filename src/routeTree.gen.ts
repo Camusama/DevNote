@@ -15,13 +15,13 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Route as rootRoute } from './routes/__root'
 import { Route as AuthedImport } from './routes/_authed'
 import { Route as IndexImport } from './routes/index'
-import { Route as AuthedNezhaImport } from './routes/_authed/nezha'
 import { Route as exampleRedirectImport } from './routes/(example)/redirect'
 import { Route as exampleDeferredImport } from './routes/(example)/deferred'
 import { Route as exampleUsersRouteImport } from './routes/(example)/users.route'
 import { Route as examplePostsRouteImport } from './routes/(example)/posts.route'
 import { Route as exampleUsersIndexImport } from './routes/(example)/users.index'
 import { Route as examplePostsIndexImport } from './routes/(example)/posts.index'
+import { Route as AuthedMonitorsNezhaImport } from './routes/_authed/monitors/nezha'
 import { Route as exampleUsersUserIdImport } from './routes/(example)/users.$userId'
 import { Route as examplePostsPostIdImport } from './routes/(example)/posts.$postId'
 import { Route as examplePathlessLayoutNestedLayoutImport } from './routes/(example)/_pathlessLayout/_nested-layout'
@@ -53,12 +53,6 @@ const IndexRoute = IndexImport.update({
 const examplePathlessLayoutRoute = examplePathlessLayoutImport.update({
   id: '/(example)/_pathlessLayout',
   getParentRoute: () => rootRoute,
-} as any)
-
-const AuthedNezhaRoute = AuthedNezhaImport.update({
-  id: '/nezha',
-  path: '/nezha',
-  getParentRoute: () => AuthedRoute,
 } as any)
 
 const exampleRedirectRoute = exampleRedirectImport.update({
@@ -95,6 +89,12 @@ const examplePostsIndexRoute = examplePostsIndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => examplePostsRouteRoute,
+} as any)
+
+const AuthedMonitorsNezhaRoute = AuthedMonitorsNezhaImport.update({
+  id: '/monitors/nezha',
+  path: '/monitors/nezha',
+  getParentRoute: () => AuthedRoute,
 } as any)
 
 const exampleUsersUserIdRoute = exampleUsersUserIdImport.update({
@@ -193,13 +193,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof exampleRedirectImport
       parentRoute: typeof rootRoute
     }
-    '/_authed/nezha': {
-      id: '/_authed/nezha'
-      path: '/nezha'
-      fullPath: '/nezha'
-      preLoaderRoute: typeof AuthedNezhaImport
-      parentRoute: typeof AuthedImport
-    }
     '/(auth)/sign-in/$': {
       id: '/(auth)/sign-in/$'
       path: '/sign-in/$'
@@ -242,6 +235,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof exampleUsersUserIdImport
       parentRoute: typeof exampleUsersRouteImport
     }
+    '/_authed/monitors/nezha': {
+      id: '/_authed/monitors/nezha'
+      path: '/monitors/nezha'
+      fullPath: '/monitors/nezha'
+      preLoaderRoute: typeof AuthedMonitorsNezhaImport
+      parentRoute: typeof AuthedImport
+    }
     '/(example)/posts/': {
       id: '/(example)/posts/'
       path: '/'
@@ -283,11 +283,11 @@ declare module '@tanstack/react-router' {
 // Create and export the route tree
 
 interface AuthedRouteChildren {
-  AuthedNezhaRoute: typeof AuthedNezhaRoute
+  AuthedMonitorsNezhaRoute: typeof AuthedMonitorsNezhaRoute
 }
 
 const AuthedRouteChildren: AuthedRouteChildren = {
-  AuthedNezhaRoute: AuthedNezhaRoute,
+  AuthedMonitorsNezhaRoute: AuthedMonitorsNezhaRoute,
 }
 
 const AuthedRouteWithChildren =
@@ -358,11 +358,11 @@ export interface FileRoutesByFullPath {
   '/users': typeof exampleUsersRouteRouteWithChildren
   '/deferred': typeof exampleDeferredRoute
   '/redirect': typeof exampleRedirectRoute
-  '/nezha': typeof AuthedNezhaRoute
   '/sign-in/$': typeof authSignInSplatRoute
   '/sign-up/$': typeof authSignUpSplatRoute
   '/posts/$postId': typeof examplePostsPostIdRoute
   '/users/$userId': typeof exampleUsersUserIdRoute
+  '/monitors/nezha': typeof AuthedMonitorsNezhaRoute
   '/posts/': typeof examplePostsIndexRoute
   '/users/': typeof exampleUsersIndexRoute
   '/route-a': typeof examplePathlessLayoutNestedLayoutRouteARoute
@@ -375,11 +375,11 @@ export interface FileRoutesByTo {
   '': typeof AuthedRouteWithChildren
   '/deferred': typeof exampleDeferredRoute
   '/redirect': typeof exampleRedirectRoute
-  '/nezha': typeof AuthedNezhaRoute
   '/sign-in/$': typeof authSignInSplatRoute
   '/sign-up/$': typeof authSignUpSplatRoute
   '/posts/$postId': typeof examplePostsPostIdRoute
   '/users/$userId': typeof exampleUsersUserIdRoute
+  '/monitors/nezha': typeof AuthedMonitorsNezhaRoute
   '/posts': typeof examplePostsIndexRoute
   '/users': typeof exampleUsersIndexRoute
   '/route-a': typeof examplePathlessLayoutNestedLayoutRouteARoute
@@ -395,13 +395,13 @@ export interface FileRoutesById {
   '/(example)/users': typeof exampleUsersRouteRouteWithChildren
   '/(example)/deferred': typeof exampleDeferredRoute
   '/(example)/redirect': typeof exampleRedirectRoute
-  '/_authed/nezha': typeof AuthedNezhaRoute
   '/(auth)/sign-in/$': typeof authSignInSplatRoute
   '/(auth)/sign-up/$': typeof authSignUpSplatRoute
   '/(example)/_pathlessLayout': typeof examplePathlessLayoutRouteWithChildren
   '/(example)/_pathlessLayout/_nested-layout': typeof examplePathlessLayoutNestedLayoutRouteWithChildren
   '/(example)/posts/$postId': typeof examplePostsPostIdRoute
   '/(example)/users/$userId': typeof exampleUsersUserIdRoute
+  '/_authed/monitors/nezha': typeof AuthedMonitorsNezhaRoute
   '/(example)/posts/': typeof examplePostsIndexRoute
   '/(example)/users/': typeof exampleUsersIndexRoute
   '/(example)/_pathlessLayout/_nested-layout/route-a': typeof examplePathlessLayoutNestedLayoutRouteARoute
@@ -418,11 +418,11 @@ export interface FileRouteTypes {
     | '/users'
     | '/deferred'
     | '/redirect'
-    | '/nezha'
     | '/sign-in/$'
     | '/sign-up/$'
     | '/posts/$postId'
     | '/users/$userId'
+    | '/monitors/nezha'
     | '/posts/'
     | '/users/'
     | '/route-a'
@@ -434,11 +434,11 @@ export interface FileRouteTypes {
     | ''
     | '/deferred'
     | '/redirect'
-    | '/nezha'
     | '/sign-in/$'
     | '/sign-up/$'
     | '/posts/$postId'
     | '/users/$userId'
+    | '/monitors/nezha'
     | '/posts'
     | '/users'
     | '/route-a'
@@ -452,13 +452,13 @@ export interface FileRouteTypes {
     | '/(example)/users'
     | '/(example)/deferred'
     | '/(example)/redirect'
-    | '/_authed/nezha'
     | '/(auth)/sign-in/$'
     | '/(auth)/sign-up/$'
     | '/(example)/_pathlessLayout'
     | '/(example)/_pathlessLayout/_nested-layout'
     | '/(example)/posts/$postId'
     | '/(example)/users/$userId'
+    | '/_authed/monitors/nezha'
     | '/(example)/posts/'
     | '/(example)/users/'
     | '/(example)/_pathlessLayout/_nested-layout/route-a'
@@ -521,7 +521,7 @@ export const routeTree = rootRoute
     "/_authed": {
       "filePath": "_authed.tsx",
       "children": [
-        "/_authed/nezha"
+        "/_authed/monitors/nezha"
       ]
     },
     "/(example)/posts": {
@@ -543,10 +543,6 @@ export const routeTree = rootRoute
     },
     "/(example)/redirect": {
       "filePath": "(example)/redirect.tsx"
-    },
-    "/_authed/nezha": {
-      "filePath": "_authed/nezha.tsx",
-      "parent": "/_authed"
     },
     "/(auth)/sign-in/$": {
       "filePath": "(auth)/sign-in.$.tsx"
@@ -575,6 +571,10 @@ export const routeTree = rootRoute
     "/(example)/users/$userId": {
       "filePath": "(example)/users.$userId.tsx",
       "parent": "/(example)/users"
+    },
+    "/_authed/monitors/nezha": {
+      "filePath": "_authed/monitors/nezha.tsx",
+      "parent": "/_authed"
     },
     "/(example)/posts/": {
       "filePath": "(example)/posts.index.tsx",
