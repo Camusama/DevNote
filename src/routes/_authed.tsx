@@ -1,22 +1,25 @@
 import { getAuth } from '@clerk/tanstack-react-start/server'
-import { createFileRoute, redirect } from '@tanstack/react-router'
+import { createFileRoute, Outlet, redirect } from '@tanstack/react-router'
 import { createServerFn } from '@tanstack/react-start'
 import { getWebRequest } from '@tanstack/react-start/server'
-const fetchClerkAuth = createServerFn({ method: 'GET' }).handler(async () => {
-  const { userId } = await getAuth(getWebRequest()!)
 
-  return {
-    userId,
+const authStateFn = createServerFn({ method: 'GET' }).handler(async () => {
+  const request = getWebRequest()
+  if (!request) throw new Error('No request found')
+  const { userId } = await getAuth(request)
+
+  if (!userId) {
+    throw redirect({
+      to: '/sign-in/$',
+      replace: true,
+    })
   }
+
+  return { userId }
 })
 export const Route = createFileRoute('/_authed')({
   beforeLoad: async () => {
-    const { userId } = await fetchClerkAuth()
-    if (!userId) {
-      return redirect({
-        to: '/sign-in/$',
-      })
-    }
+    const { userId } = await authStateFn()
     return {
       userId,
     }
