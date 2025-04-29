@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vinxi dev --port 5000",
     "build": "vinxi build",
-    "start": "vinxi start"
+    "start": "vinxi start",
+    "preview": "wrangler pages dev",
+    "deploy": "wrangler pages deploy ./dist"
   },
   "dependencies": {
     "@clerk/tanstack-react-start": "^0.14.0",
