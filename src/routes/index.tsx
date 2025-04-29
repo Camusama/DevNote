@@ -23,22 +23,9 @@ export const Route = createFileRoute('/')({
 })
 
 function Home() {
-  const state = Route.useLoaderData()
-  const { isLoaded, isSignedIn, user } = useUser()
-
-  if (!isLoaded) {
-    return <div>Loading...</div>
-  }
-
-  if (!isSignedIn) {
-    // You could also add a redirect to the sign-in page here
-    return <div>Sign in to view this page</div>
-  }
-
   return (
     <>
-      <SignOutButton>SignOutButton</SignOutButton>
-      <div>Hello, {user.firstName}!</div>
+      <h1>home page</h1>
     </>
   )
 }
