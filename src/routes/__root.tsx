@@ -19,7 +19,7 @@ export const Route = createRootRoute({
         content: 'width=device-width, initial-scale=1',
       },
       ...seo({
-        title: 'DevConsole',
+        title: 'DevNote',
         description: `TanStack Start is a type-safe, client-first, full-stack React framework. `,
       }),
     ],
