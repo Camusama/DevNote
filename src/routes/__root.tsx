@@ -7,17 +7,7 @@ import appCss from '@/styles/app.css?url'
 import { seo } from '@/utils/seo'
 import ConsoleLayout from '@/pages/layouts/ConsoleLayout'
 import { ClerkProvider } from '@clerk/tanstack-react-start'
-import { getAuth } from '@clerk/tanstack-react-start/server'
-import { getWebRequest } from '@tanstack/react-start/server'
-import { createServerFn } from '@tanstack/react-start'
 
-const fetchClerkAuth = createServerFn({ method: 'GET' }).handler(async () => {
-  const { userId } = await getAuth(getWebRequest()!)
-
-  return {
-    userId,
-  }
-})
 export const Route = createRootRoute({
   head: () => ({
     meta: [
@@ -63,13 +53,7 @@ export const Route = createRootRoute({
       </RootDocument>
     )
   },
-  beforeLoad: async () => {
-    const { userId } = await fetchClerkAuth()
 
-    return {
-      userId,
-    }
-  },
   notFoundComponent: () => <NotFound />,
   component: RootComponent,
 })
