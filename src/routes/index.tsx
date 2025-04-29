@@ -20,10 +20,6 @@ import { SignOutButton, useUser } from '@clerk/tanstack-react-start'
 
 export const Route = createFileRoute('/')({
   component: Home,
-  // beforeLoad: async () => await authStateFn(),
-  loader: async ({ context }) => {
-    return { userId: context.userId }
-  },
 })
 
 function Home() {
@@ -43,7 +39,6 @@ function Home() {
     <>
       <SignOutButton>SignOutButton</SignOutButton>
       <div>Hello, {user.firstName}!</div>
-      <h1>Your ID is {state.userId}!</h1>
     </>
   )
 }
