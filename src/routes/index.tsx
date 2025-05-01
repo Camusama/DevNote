@@ -25,6 +25,10 @@ function Home() {
             })}
           </span>
         </div>
+        <div className="flex justify-between">
+          <span className="font-medium">PAGE URL:</span>
+          <span>{import.meta.env.PAGE_URL || 'local'}</span>
+        </div>
       </div>
     </div>
   )
