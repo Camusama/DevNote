@@ -20,6 +20,7 @@ export default defineConfig({
       'import.meta.env.CF_PAGES_BUILD_TIME': JSON.stringify(new Date().toISOString()),
       'import.meta.env.BUILD_BRANCH': JSON.stringify(process.env.CF_PAGES_BRANCH),
       'import.meta.env.BUILD_COMMIT_HASH': JSON.stringify(process.env.CF_PAGES_COMMIT_SHA),
+      'import.meta.env.PAGE_URL': JSON.stringify(process.env.CF_PAGES_URL),
     },
   },
 })
