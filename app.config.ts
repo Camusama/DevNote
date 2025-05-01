@@ -18,6 +18,8 @@ export default defineConfig({
     ],
     define: {
       'import.meta.env.CF_PAGES_BUILD_TIME': JSON.stringify(new Date().toISOString()),
+      'import.meta.env.BUILD_BRANCH': process.env.CF_PAGES_BRANCH,
+      'import.meta.env.BUILD_COMMIT_HASH': process.env.CF_PAGES_COMMIT_SHA,
     },
   },
 })
