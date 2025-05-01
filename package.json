@@ -11,7 +11,7 @@
     "deploy": "wrangler pages deploy ./dist"
   },
   "dependencies": {
-    "@clerk/tanstack-react-start": "^0.14.0",
+    "@clerk/tanstack-react-start": "^0.14.2",
     "@radix-ui/react-avatar": "^1.1.7",
     "@radix-ui/react-collapsible": "^1.1.8",
     "@radix-ui/react-dialog": "^1.1.11",

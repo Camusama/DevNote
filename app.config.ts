@@ -16,5 +16,8 @@ export default defineConfig({
         projects: ['./tsconfig.json'],
       }),
     ],
+    define: {
+      'import.meta.env.CF_PAGES_BUILD_TIME': JSON.stringify(new Date().toISOString()),
+    },
   },
 })
