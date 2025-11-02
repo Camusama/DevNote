@@ -13,9 +13,12 @@ export default () => {
 
   return (
     <div>
-      <button type="button" id="use-click-away-button">
+      <div
+        className="w-50 h-50 bg-red-500 text-white flex items-center justify-center"
+        id="use-click-away-button"
+      >
         box
-      </button>
+      </div>
       <p>counter: {counter}</p>
     </div>
   )
