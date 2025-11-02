@@ -23,7 +23,12 @@ import { Route as exampleUsersRouteImport } from './routes/(example)/users.route
 import { Route as examplePostsRouteImport } from './routes/(example)/posts.route'
 import { Route as exampleUsersIndexImport } from './routes/(example)/users.index'
 import { Route as examplePostsIndexImport } from './routes/(example)/posts.index'
-import { Route as PracticeAhooksClosureTrapImport } from './routes/practice/ahooks/ClosureTrap'
+import { Route as PracticeAhooksStateImport } from './routes/practice/ahooks/state'
+import { Route as PracticeAhooksSceneImport } from './routes/practice/ahooks/scene'
+import { Route as PracticeAhooksLifecycleImport } from './routes/practice/ahooks/lifecycle'
+import { Route as PracticeAhooksEffectImport } from './routes/practice/ahooks/effect'
+import { Route as PracticeAhooksDomImport } from './routes/practice/ahooks/dom'
+import { Route as PracticeAhooksAdvancedImport } from './routes/practice/ahooks/advanced'
 import { Route as AuthedMonitorsNezhaImport } from './routes/_authed/monitors/nezha'
 import { Route as exampleUsersUserIdImport } from './routes/(example)/users.$userId'
 import { Route as examplePostsPostIdImport } from './routes/(example)/posts.$postId'
@@ -106,9 +111,39 @@ const examplePostsIndexRoute = examplePostsIndexImport.update({
   getParentRoute: () => examplePostsRouteRoute,
 } as any)
 
-const PracticeAhooksClosureTrapRoute = PracticeAhooksClosureTrapImport.update({
-  id: '/ClosureTrap',
-  path: '/ClosureTrap',
+const PracticeAhooksStateRoute = PracticeAhooksStateImport.update({
+  id: '/state',
+  path: '/state',
+  getParentRoute: () => PracticeAhooksRouteRoute,
+} as any)
+
+const PracticeAhooksSceneRoute = PracticeAhooksSceneImport.update({
+  id: '/scene',
+  path: '/scene',
+  getParentRoute: () => PracticeAhooksRouteRoute,
+} as any)
+
+const PracticeAhooksLifecycleRoute = PracticeAhooksLifecycleImport.update({
+  id: '/lifecycle',
+  path: '/lifecycle',
+  getParentRoute: () => PracticeAhooksRouteRoute,
+} as any)
+
+const PracticeAhooksEffectRoute = PracticeAhooksEffectImport.update({
+  id: '/effect',
+  path: '/effect',
+  getParentRoute: () => PracticeAhooksRouteRoute,
+} as any)
+
+const PracticeAhooksDomRoute = PracticeAhooksDomImport.update({
+  id: '/dom',
+  path: '/dom',
+  getParentRoute: () => PracticeAhooksRouteRoute,
+} as any)
+
+const PracticeAhooksAdvancedRoute = PracticeAhooksAdvancedImport.update({
+  id: '/advanced',
+  path: '/advanced',
   getParentRoute: () => PracticeAhooksRouteRoute,
 } as any)
 
@@ -277,11 +312,46 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthedMonitorsNezhaImport
       parentRoute: typeof AuthedImport
     }
-    '/practice/ahooks/ClosureTrap': {
-      id: '/practice/ahooks/ClosureTrap'
-      path: '/ClosureTrap'
-      fullPath: '/practice/ahooks/ClosureTrap'
-      preLoaderRoute: typeof PracticeAhooksClosureTrapImport
+    '/practice/ahooks/advanced': {
+      id: '/practice/ahooks/advanced'
+      path: '/advanced'
+      fullPath: '/practice/ahooks/advanced'
+      preLoaderRoute: typeof PracticeAhooksAdvancedImport
+      parentRoute: typeof PracticeAhooksRouteImport
+    }
+    '/practice/ahooks/dom': {
+      id: '/practice/ahooks/dom'
+      path: '/dom'
+      fullPath: '/practice/ahooks/dom'
+      preLoaderRoute: typeof PracticeAhooksDomImport
+      parentRoute: typeof PracticeAhooksRouteImport
+    }
+    '/practice/ahooks/effect': {
+      id: '/practice/ahooks/effect'
+      path: '/effect'
+      fullPath: '/practice/ahooks/effect'
+      preLoaderRoute: typeof PracticeAhooksEffectImport
+      parentRoute: typeof PracticeAhooksRouteImport
+    }
+    '/practice/ahooks/lifecycle': {
+      id: '/practice/ahooks/lifecycle'
+      path: '/lifecycle'
+      fullPath: '/practice/ahooks/lifecycle'
+      preLoaderRoute: typeof PracticeAhooksLifecycleImport
+      parentRoute: typeof PracticeAhooksRouteImport
+    }
+    '/practice/ahooks/scene': {
+      id: '/practice/ahooks/scene'
+      path: '/scene'
+      fullPath: '/practice/ahooks/scene'
+      preLoaderRoute: typeof PracticeAhooksSceneImport
+      parentRoute: typeof PracticeAhooksRouteImport
+    }
+    '/practice/ahooks/state': {
+      id: '/practice/ahooks/state'
+      path: '/state'
+      fullPath: '/practice/ahooks/state'
+      preLoaderRoute: typeof PracticeAhooksStateImport
       parentRoute: typeof PracticeAhooksRouteImport
     }
     '/(example)/posts/': {
@@ -362,11 +432,21 @@ const exampleUsersRouteRouteWithChildren =
   exampleUsersRouteRoute._addFileChildren(exampleUsersRouteRouteChildren)
 
 interface PracticeAhooksRouteRouteChildren {
-  PracticeAhooksClosureTrapRoute: typeof PracticeAhooksClosureTrapRoute
+  PracticeAhooksAdvancedRoute: typeof PracticeAhooksAdvancedRoute
+  PracticeAhooksDomRoute: typeof PracticeAhooksDomRoute
+  PracticeAhooksEffectRoute: typeof PracticeAhooksEffectRoute
+  PracticeAhooksLifecycleRoute: typeof PracticeAhooksLifecycleRoute
+  PracticeAhooksSceneRoute: typeof PracticeAhooksSceneRoute
+  PracticeAhooksStateRoute: typeof PracticeAhooksStateRoute
 }
 
 const PracticeAhooksRouteRouteChildren: PracticeAhooksRouteRouteChildren = {
-  PracticeAhooksClosureTrapRoute: PracticeAhooksClosureTrapRoute,
+  PracticeAhooksAdvancedRoute: PracticeAhooksAdvancedRoute,
+  PracticeAhooksDomRoute: PracticeAhooksDomRoute,
+  PracticeAhooksEffectRoute: PracticeAhooksEffectRoute,
+  PracticeAhooksLifecycleRoute: PracticeAhooksLifecycleRoute,
+  PracticeAhooksSceneRoute: PracticeAhooksSceneRoute,
+  PracticeAhooksStateRoute: PracticeAhooksStateRoute,
 }
 
 const PracticeAhooksRouteRouteWithChildren =
@@ -418,7 +498,12 @@ export interface FileRoutesByFullPath {
   '/posts/$postId': typeof examplePostsPostIdRoute
   '/users/$userId': typeof exampleUsersUserIdRoute
   '/monitors/nezha': typeof AuthedMonitorsNezhaRoute
-  '/practice/ahooks/ClosureTrap': typeof PracticeAhooksClosureTrapRoute
+  '/practice/ahooks/advanced': typeof PracticeAhooksAdvancedRoute
+  '/practice/ahooks/dom': typeof PracticeAhooksDomRoute
+  '/practice/ahooks/effect': typeof PracticeAhooksEffectRoute
+  '/practice/ahooks/lifecycle': typeof PracticeAhooksLifecycleRoute
+  '/practice/ahooks/scene': typeof PracticeAhooksSceneRoute
+  '/practice/ahooks/state': typeof PracticeAhooksStateRoute
   '/posts/': typeof examplePostsIndexRoute
   '/users/': typeof exampleUsersIndexRoute
   '/route-a': typeof examplePathlessLayoutNestedLayoutRouteARoute
@@ -438,7 +523,12 @@ export interface FileRoutesByTo {
   '/posts/$postId': typeof examplePostsPostIdRoute
   '/users/$userId': typeof exampleUsersUserIdRoute
   '/monitors/nezha': typeof AuthedMonitorsNezhaRoute
-  '/practice/ahooks/ClosureTrap': typeof PracticeAhooksClosureTrapRoute
+  '/practice/ahooks/advanced': typeof PracticeAhooksAdvancedRoute
+  '/practice/ahooks/dom': typeof PracticeAhooksDomRoute
+  '/practice/ahooks/effect': typeof PracticeAhooksEffectRoute
+  '/practice/ahooks/lifecycle': typeof PracticeAhooksLifecycleRoute
+  '/practice/ahooks/scene': typeof PracticeAhooksSceneRoute
+  '/practice/ahooks/state': typeof PracticeAhooksStateRoute
   '/posts': typeof examplePostsIndexRoute
   '/users': typeof exampleUsersIndexRoute
   '/route-a': typeof examplePathlessLayoutNestedLayoutRouteARoute
@@ -463,7 +553,12 @@ export interface FileRoutesById {
   '/(example)/posts/$postId': typeof examplePostsPostIdRoute
   '/(example)/users/$userId': typeof exampleUsersUserIdRoute
   '/_authed/monitors/nezha': typeof AuthedMonitorsNezhaRoute
-  '/practice/ahooks/ClosureTrap': typeof PracticeAhooksClosureTrapRoute
+  '/practice/ahooks/advanced': typeof PracticeAhooksAdvancedRoute
+  '/practice/ahooks/dom': typeof PracticeAhooksDomRoute
+  '/practice/ahooks/effect': typeof PracticeAhooksEffectRoute
+  '/practice/ahooks/lifecycle': typeof PracticeAhooksLifecycleRoute
+  '/practice/ahooks/scene': typeof PracticeAhooksSceneRoute
+  '/practice/ahooks/state': typeof PracticeAhooksStateRoute
   '/(example)/posts/': typeof examplePostsIndexRoute
   '/(example)/users/': typeof exampleUsersIndexRoute
   '/(example)/_pathlessLayout/_nested-layout/route-a': typeof examplePathlessLayoutNestedLayoutRouteARoute
@@ -487,7 +582,12 @@ export interface FileRouteTypes {
     | '/posts/$postId'
     | '/users/$userId'
     | '/monitors/nezha'
-    | '/practice/ahooks/ClosureTrap'
+    | '/practice/ahooks/advanced'
+    | '/practice/ahooks/dom'
+    | '/practice/ahooks/effect'
+    | '/practice/ahooks/lifecycle'
+    | '/practice/ahooks/scene'
+    | '/practice/ahooks/state'
     | '/posts/'
     | '/users/'
     | '/route-a'
@@ -506,7 +606,12 @@ export interface FileRouteTypes {
     | '/posts/$postId'
     | '/users/$userId'
     | '/monitors/nezha'
-    | '/practice/ahooks/ClosureTrap'
+    | '/practice/ahooks/advanced'
+    | '/practice/ahooks/dom'
+    | '/practice/ahooks/effect'
+    | '/practice/ahooks/lifecycle'
+    | '/practice/ahooks/scene'
+    | '/practice/ahooks/state'
     | '/posts'
     | '/users'
     | '/route-a'
@@ -529,7 +634,12 @@ export interface FileRouteTypes {
     | '/(example)/posts/$postId'
     | '/(example)/users/$userId'
     | '/_authed/monitors/nezha'
-    | '/practice/ahooks/ClosureTrap'
+    | '/practice/ahooks/advanced'
+    | '/practice/ahooks/dom'
+    | '/practice/ahooks/effect'
+    | '/practice/ahooks/lifecycle'
+    | '/practice/ahooks/scene'
+    | '/practice/ahooks/state'
     | '/(example)/posts/'
     | '/(example)/users/'
     | '/(example)/_pathlessLayout/_nested-layout/route-a'
@@ -618,7 +728,12 @@ export const routeTree = rootRoute
     "/practice/ahooks": {
       "filePath": "practice/ahooks/route.tsx",
       "children": [
-        "/practice/ahooks/ClosureTrap"
+        "/practice/ahooks/advanced",
+        "/practice/ahooks/dom",
+        "/practice/ahooks/effect",
+        "/practice/ahooks/lifecycle",
+        "/practice/ahooks/scene",
+        "/practice/ahooks/state"
       ]
     },
     "/(example)/deferred": {
@@ -662,8 +777,28 @@ export const routeTree = rootRoute
       "filePath": "_authed/monitors/nezha.tsx",
       "parent": "/_authed"
     },
-    "/practice/ahooks/ClosureTrap": {
-      "filePath": "practice/ahooks/ClosureTrap.tsx",
+    "/practice/ahooks/advanced": {
+      "filePath": "practice/ahooks/advanced.tsx",
+      "parent": "/practice/ahooks"
+    },
+    "/practice/ahooks/dom": {
+      "filePath": "practice/ahooks/dom.tsx",
+      "parent": "/practice/ahooks"
+    },
+    "/practice/ahooks/effect": {
+      "filePath": "practice/ahooks/effect.tsx",
+      "parent": "/practice/ahooks"
+    },
+    "/practice/ahooks/lifecycle": {
+      "filePath": "practice/ahooks/lifecycle.tsx",
+      "parent": "/practice/ahooks"
+    },
+    "/practice/ahooks/scene": {
+      "filePath": "practice/ahooks/scene.tsx",
+      "parent": "/practice/ahooks"
+    },
+    "/practice/ahooks/state": {
+      "filePath": "practice/ahooks/state.tsx",
       "parent": "/practice/ahooks"
     },
     "/(example)/posts/": {

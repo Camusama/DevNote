@@ -5,8 +5,22 @@ export const Route = createFileRoute('/practice/ahooks')({
 })
 const RouteMap = [
   {
-    path: 'ClosureTrap',
-    name: 'ClosureTrap',
+    path: 'advanced',
+  },
+  {
+    path: 'dom',
+  },
+  {
+    path: 'effect',
+  },
+  {
+    path: 'lifecycle',
+  },
+  {
+    path: 'scene',
+  },
+  {
+    path: 'state',
   },
 ]
 function RouteComponent() {
@@ -15,14 +29,13 @@ function RouteComponent() {
       <ul className="list-disc pl-4">
         {[...RouteMap].map(route => {
           return (
-            <li key={route.name} className="whitespace-nowrap">
+            <li key={route.path} className="whitespace-nowrap">
               <Link
-                //@ts-ignore
                 to={`/practice/ahooks/${route.path}`}
                 className="block py-1 text-blue-800 hover:text-blue-600"
                 activeProps={{ className: 'text-black font-bold' }}
               >
-                <div>{route.name}</div>
+                <div>{route.path}</div>
               </Link>
             </li>
           )
