@@ -1,6 +1,20 @@
-import { useMemoizedFn } from 'ahooks'
-import { message } from 'antd'
+// import { useMemoizedFn } from 'ahooks'
+import { Button, message } from 'antd'
 import React, { useCallback, useRef, useState } from 'react'
+
+function useMemoizedFn<T extends (...args: any[]) => any>(fn: T): T {
+  // 用ref存储最新的函数体
+  const fnRef = useRef<T>(fn)
+  fnRef.current = fn
+
+  // 定义一个稳定的包装函数（引用不变）
+  //@ts-expect-error
+  const memoizedFn = useRef<T>((...args: any[]) => {
+    return fnRef.current(...args)
+  })
+
+  return memoizedFn.current
+}
 
 export default () => {
   const [count, setCount] = useState(0)
@@ -16,14 +30,13 @@ export default () => {
   return (
     <>
       <p>count: {count}</p>
-      <button
-        type="button"
+      <Button
         onClick={() => {
           setCount(c => c + 1)
         }}
       >
         Add Count
-      </button>
+      </Button>
 
       <p>You can click the button to see the number of sub-component renderings</p>
 

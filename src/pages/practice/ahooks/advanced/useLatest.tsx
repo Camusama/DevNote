@@ -1,5 +1,19 @@
-import { useLatest } from 'ahooks'
-import React, { useEffect, useState } from 'react'
+// import { useLatest } from 'ahooks'
+import React, { useEffect, useRef, useState } from 'react'
+
+// 实现 useLatest：始终返回最新的值
+function useLatest<T>(value: T) {
+  // 创建一个 Ref 用于存储最新值
+  const ref = useRef<T>(value)
+
+  // 当 value 变化时，更新 Ref 的 current 值
+  useEffect(() => {
+    ref.current = value
+  }, [value])
+
+  // 返回这个 Ref（始终指向最新值）
+  return ref
+}
 
 export default () => {
   const [count, setCount] = useState(0)
