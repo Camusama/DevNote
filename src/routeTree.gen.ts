@@ -26,6 +26,7 @@ import { Route as examplePostsIndexImport } from './routes/(example)/posts.index
 import { Route as PracticeAhooksStateImport } from './routes/practice/ahooks/state'
 import { Route as PracticeAhooksSceneImport } from './routes/practice/ahooks/scene'
 import { Route as PracticeAhooksLifecycleImport } from './routes/practice/ahooks/lifecycle'
+import { Route as PracticeAhooksHocerrrequestImport } from './routes/practice/ahooks/hoc+err+request'
 import { Route as PracticeAhooksEffectImport } from './routes/practice/ahooks/effect'
 import { Route as PracticeAhooksDomImport } from './routes/practice/ahooks/dom'
 import { Route as PracticeAhooksAdvancedImport } from './routes/practice/ahooks/advanced'
@@ -128,6 +129,13 @@ const PracticeAhooksLifecycleRoute = PracticeAhooksLifecycleImport.update({
   path: '/lifecycle',
   getParentRoute: () => PracticeAhooksRouteRoute,
 } as any)
+
+const PracticeAhooksHocerrrequestRoute =
+  PracticeAhooksHocerrrequestImport.update({
+    id: '/hoc+err+request',
+    path: '/hoc+err+request',
+    getParentRoute: () => PracticeAhooksRouteRoute,
+  } as any)
 
 const PracticeAhooksEffectRoute = PracticeAhooksEffectImport.update({
   id: '/effect',
@@ -333,6 +341,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PracticeAhooksEffectImport
       parentRoute: typeof PracticeAhooksRouteImport
     }
+    '/practice/ahooks/hoc+err+request': {
+      id: '/practice/ahooks/hoc+err+request'
+      path: '/hoc+err+request'
+      fullPath: '/practice/ahooks/hoc+err+request'
+      preLoaderRoute: typeof PracticeAhooksHocerrrequestImport
+      parentRoute: typeof PracticeAhooksRouteImport
+    }
     '/practice/ahooks/lifecycle': {
       id: '/practice/ahooks/lifecycle'
       path: '/lifecycle'
@@ -435,6 +450,7 @@ interface PracticeAhooksRouteRouteChildren {
   PracticeAhooksAdvancedRoute: typeof PracticeAhooksAdvancedRoute
   PracticeAhooksDomRoute: typeof PracticeAhooksDomRoute
   PracticeAhooksEffectRoute: typeof PracticeAhooksEffectRoute
+  PracticeAhooksHocerrrequestRoute: typeof PracticeAhooksHocerrrequestRoute
   PracticeAhooksLifecycleRoute: typeof PracticeAhooksLifecycleRoute
   PracticeAhooksSceneRoute: typeof PracticeAhooksSceneRoute
   PracticeAhooksStateRoute: typeof PracticeAhooksStateRoute
@@ -444,6 +460,7 @@ const PracticeAhooksRouteRouteChildren: PracticeAhooksRouteRouteChildren = {
   PracticeAhooksAdvancedRoute: PracticeAhooksAdvancedRoute,
   PracticeAhooksDomRoute: PracticeAhooksDomRoute,
   PracticeAhooksEffectRoute: PracticeAhooksEffectRoute,
+  PracticeAhooksHocerrrequestRoute: PracticeAhooksHocerrrequestRoute,
   PracticeAhooksLifecycleRoute: PracticeAhooksLifecycleRoute,
   PracticeAhooksSceneRoute: PracticeAhooksSceneRoute,
   PracticeAhooksStateRoute: PracticeAhooksStateRoute,
@@ -501,6 +518,7 @@ export interface FileRoutesByFullPath {
   '/practice/ahooks/advanced': typeof PracticeAhooksAdvancedRoute
   '/practice/ahooks/dom': typeof PracticeAhooksDomRoute
   '/practice/ahooks/effect': typeof PracticeAhooksEffectRoute
+  '/practice/ahooks/hoc+err+request': typeof PracticeAhooksHocerrrequestRoute
   '/practice/ahooks/lifecycle': typeof PracticeAhooksLifecycleRoute
   '/practice/ahooks/scene': typeof PracticeAhooksSceneRoute
   '/practice/ahooks/state': typeof PracticeAhooksStateRoute
@@ -526,6 +544,7 @@ export interface FileRoutesByTo {
   '/practice/ahooks/advanced': typeof PracticeAhooksAdvancedRoute
   '/practice/ahooks/dom': typeof PracticeAhooksDomRoute
   '/practice/ahooks/effect': typeof PracticeAhooksEffectRoute
+  '/practice/ahooks/hoc+err+request': typeof PracticeAhooksHocerrrequestRoute
   '/practice/ahooks/lifecycle': typeof PracticeAhooksLifecycleRoute
   '/practice/ahooks/scene': typeof PracticeAhooksSceneRoute
   '/practice/ahooks/state': typeof PracticeAhooksStateRoute
@@ -556,6 +575,7 @@ export interface FileRoutesById {
   '/practice/ahooks/advanced': typeof PracticeAhooksAdvancedRoute
   '/practice/ahooks/dom': typeof PracticeAhooksDomRoute
   '/practice/ahooks/effect': typeof PracticeAhooksEffectRoute
+  '/practice/ahooks/hoc+err+request': typeof PracticeAhooksHocerrrequestRoute
   '/practice/ahooks/lifecycle': typeof PracticeAhooksLifecycleRoute
   '/practice/ahooks/scene': typeof PracticeAhooksSceneRoute
   '/practice/ahooks/state': typeof PracticeAhooksStateRoute
@@ -585,6 +605,7 @@ export interface FileRouteTypes {
     | '/practice/ahooks/advanced'
     | '/practice/ahooks/dom'
     | '/practice/ahooks/effect'
+    | '/practice/ahooks/hoc+err+request'
     | '/practice/ahooks/lifecycle'
     | '/practice/ahooks/scene'
     | '/practice/ahooks/state'
@@ -609,6 +630,7 @@ export interface FileRouteTypes {
     | '/practice/ahooks/advanced'
     | '/practice/ahooks/dom'
     | '/practice/ahooks/effect'
+    | '/practice/ahooks/hoc+err+request'
     | '/practice/ahooks/lifecycle'
     | '/practice/ahooks/scene'
     | '/practice/ahooks/state'
@@ -637,6 +659,7 @@ export interface FileRouteTypes {
     | '/practice/ahooks/advanced'
     | '/practice/ahooks/dom'
     | '/practice/ahooks/effect'
+    | '/practice/ahooks/hoc+err+request'
     | '/practice/ahooks/lifecycle'
     | '/practice/ahooks/scene'
     | '/practice/ahooks/state'
@@ -731,6 +754,7 @@ export const routeTree = rootRoute
         "/practice/ahooks/advanced",
         "/practice/ahooks/dom",
         "/practice/ahooks/effect",
+        "/practice/ahooks/hoc+err+request",
         "/practice/ahooks/lifecycle",
         "/practice/ahooks/scene",
         "/practice/ahooks/state"
@@ -787,6 +811,10 @@ export const routeTree = rootRoute
     },
     "/practice/ahooks/effect": {
       "filePath": "practice/ahooks/effect.tsx",
+      "parent": "/practice/ahooks"
+    },
+    "/practice/ahooks/hoc+err+request": {
+      "filePath": "practice/ahooks/hoc+err+request.tsx",
       "parent": "/practice/ahooks"
     },
     "/practice/ahooks/lifecycle": {

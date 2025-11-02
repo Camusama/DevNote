@@ -22,6 +22,9 @@ const RouteMap = [
   {
     path: 'state',
   },
+  {
+    path: 'hoc+err+request',
+  },
 ]
 function RouteComponent() {
   return (
