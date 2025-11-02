@@ -15,12 +15,15 @@ import { createFileRoute } from '@tanstack/react-router'
 import { Route as rootRoute } from './routes/__root'
 import { Route as AuthedImport } from './routes/_authed'
 import { Route as IndexImport } from './routes/index'
+import { Route as PracticeIndexImport } from './routes/practice/index'
 import { Route as exampleRedirectImport } from './routes/(example)/redirect'
 import { Route as exampleDeferredImport } from './routes/(example)/deferred'
+import { Route as PracticeAhooksRouteImport } from './routes/practice/ahooks/route'
 import { Route as exampleUsersRouteImport } from './routes/(example)/users.route'
 import { Route as examplePostsRouteImport } from './routes/(example)/posts.route'
 import { Route as exampleUsersIndexImport } from './routes/(example)/users.index'
 import { Route as examplePostsIndexImport } from './routes/(example)/posts.index'
+import { Route as PracticeAhooksClosureTrapImport } from './routes/practice/ahooks/ClosureTrap'
 import { Route as AuthedMonitorsNezhaImport } from './routes/_authed/monitors/nezha'
 import { Route as exampleUsersUserIdImport } from './routes/(example)/users.$userId'
 import { Route as examplePostsPostIdImport } from './routes/(example)/posts.$postId'
@@ -55,6 +58,12 @@ const examplePathlessLayoutRoute = examplePathlessLayoutImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const PracticeIndexRoute = PracticeIndexImport.update({
+  id: '/practice/',
+  path: '/practice/',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const exampleRedirectRoute = exampleRedirectImport.update({
   id: '/(example)/redirect',
   path: '/redirect',
@@ -64,6 +73,12 @@ const exampleRedirectRoute = exampleRedirectImport.update({
 const exampleDeferredRoute = exampleDeferredImport.update({
   id: '/(example)/deferred',
   path: '/deferred',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PracticeAhooksRouteRoute = PracticeAhooksRouteImport.update({
+  id: '/practice/ahooks',
+  path: '/practice/ahooks',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -89,6 +104,12 @@ const examplePostsIndexRoute = examplePostsIndexImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => examplePostsRouteRoute,
+} as any)
+
+const PracticeAhooksClosureTrapRoute = PracticeAhooksClosureTrapImport.update({
+  id: '/ClosureTrap',
+  path: '/ClosureTrap',
+  getParentRoute: () => PracticeAhooksRouteRoute,
 } as any)
 
 const AuthedMonitorsNezhaRoute = AuthedMonitorsNezhaImport.update({
@@ -179,6 +200,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof exampleUsersRouteImport
       parentRoute: typeof rootRoute
     }
+    '/practice/ahooks': {
+      id: '/practice/ahooks'
+      path: '/practice/ahooks'
+      fullPath: '/practice/ahooks'
+      preLoaderRoute: typeof PracticeAhooksRouteImport
+      parentRoute: typeof rootRoute
+    }
     '/(example)/deferred': {
       id: '/(example)/deferred'
       path: '/deferred'
@@ -191,6 +219,13 @@ declare module '@tanstack/react-router' {
       path: '/redirect'
       fullPath: '/redirect'
       preLoaderRoute: typeof exampleRedirectImport
+      parentRoute: typeof rootRoute
+    }
+    '/practice/': {
+      id: '/practice/'
+      path: '/practice'
+      fullPath: '/practice'
+      preLoaderRoute: typeof PracticeIndexImport
       parentRoute: typeof rootRoute
     }
     '/(auth)/sign-in/$': {
@@ -241,6 +276,13 @@ declare module '@tanstack/react-router' {
       fullPath: '/monitors/nezha'
       preLoaderRoute: typeof AuthedMonitorsNezhaImport
       parentRoute: typeof AuthedImport
+    }
+    '/practice/ahooks/ClosureTrap': {
+      id: '/practice/ahooks/ClosureTrap'
+      path: '/ClosureTrap'
+      fullPath: '/practice/ahooks/ClosureTrap'
+      preLoaderRoute: typeof PracticeAhooksClosureTrapImport
+      parentRoute: typeof PracticeAhooksRouteImport
     }
     '/(example)/posts/': {
       id: '/(example)/posts/'
@@ -319,6 +361,17 @@ const exampleUsersRouteRouteChildren: exampleUsersRouteRouteChildren = {
 const exampleUsersRouteRouteWithChildren =
   exampleUsersRouteRoute._addFileChildren(exampleUsersRouteRouteChildren)
 
+interface PracticeAhooksRouteRouteChildren {
+  PracticeAhooksClosureTrapRoute: typeof PracticeAhooksClosureTrapRoute
+}
+
+const PracticeAhooksRouteRouteChildren: PracticeAhooksRouteRouteChildren = {
+  PracticeAhooksClosureTrapRoute: PracticeAhooksClosureTrapRoute,
+}
+
+const PracticeAhooksRouteRouteWithChildren =
+  PracticeAhooksRouteRoute._addFileChildren(PracticeAhooksRouteRouteChildren)
+
 interface examplePathlessLayoutNestedLayoutRouteChildren {
   examplePathlessLayoutNestedLayoutRouteARoute: typeof examplePathlessLayoutNestedLayoutRouteARoute
   examplePathlessLayoutNestedLayoutRouteBRoute: typeof examplePathlessLayoutNestedLayoutRouteBRoute
@@ -356,13 +409,16 @@ export interface FileRoutesByFullPath {
   '': typeof AuthedRouteWithChildren
   '/posts': typeof examplePostsRouteRouteWithChildren
   '/users': typeof exampleUsersRouteRouteWithChildren
+  '/practice/ahooks': typeof PracticeAhooksRouteRouteWithChildren
   '/deferred': typeof exampleDeferredRoute
   '/redirect': typeof exampleRedirectRoute
+  '/practice': typeof PracticeIndexRoute
   '/sign-in/$': typeof authSignInSplatRoute
   '/sign-up/$': typeof authSignUpSplatRoute
   '/posts/$postId': typeof examplePostsPostIdRoute
   '/users/$userId': typeof exampleUsersUserIdRoute
   '/monitors/nezha': typeof AuthedMonitorsNezhaRoute
+  '/practice/ahooks/ClosureTrap': typeof PracticeAhooksClosureTrapRoute
   '/posts/': typeof examplePostsIndexRoute
   '/users/': typeof exampleUsersIndexRoute
   '/route-a': typeof examplePathlessLayoutNestedLayoutRouteARoute
@@ -373,13 +429,16 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof examplePathlessLayoutNestedLayoutRouteWithChildren
   '': typeof AuthedRouteWithChildren
+  '/practice/ahooks': typeof PracticeAhooksRouteRouteWithChildren
   '/deferred': typeof exampleDeferredRoute
   '/redirect': typeof exampleRedirectRoute
+  '/practice': typeof PracticeIndexRoute
   '/sign-in/$': typeof authSignInSplatRoute
   '/sign-up/$': typeof authSignUpSplatRoute
   '/posts/$postId': typeof examplePostsPostIdRoute
   '/users/$userId': typeof exampleUsersUserIdRoute
   '/monitors/nezha': typeof AuthedMonitorsNezhaRoute
+  '/practice/ahooks/ClosureTrap': typeof PracticeAhooksClosureTrapRoute
   '/posts': typeof examplePostsIndexRoute
   '/users': typeof exampleUsersIndexRoute
   '/route-a': typeof examplePathlessLayoutNestedLayoutRouteARoute
@@ -393,8 +452,10 @@ export interface FileRoutesById {
   '/_authed': typeof AuthedRouteWithChildren
   '/(example)/posts': typeof examplePostsRouteRouteWithChildren
   '/(example)/users': typeof exampleUsersRouteRouteWithChildren
+  '/practice/ahooks': typeof PracticeAhooksRouteRouteWithChildren
   '/(example)/deferred': typeof exampleDeferredRoute
   '/(example)/redirect': typeof exampleRedirectRoute
+  '/practice/': typeof PracticeIndexRoute
   '/(auth)/sign-in/$': typeof authSignInSplatRoute
   '/(auth)/sign-up/$': typeof authSignUpSplatRoute
   '/(example)/_pathlessLayout': typeof examplePathlessLayoutRouteWithChildren
@@ -402,6 +463,7 @@ export interface FileRoutesById {
   '/(example)/posts/$postId': typeof examplePostsPostIdRoute
   '/(example)/users/$userId': typeof exampleUsersUserIdRoute
   '/_authed/monitors/nezha': typeof AuthedMonitorsNezhaRoute
+  '/practice/ahooks/ClosureTrap': typeof PracticeAhooksClosureTrapRoute
   '/(example)/posts/': typeof examplePostsIndexRoute
   '/(example)/users/': typeof exampleUsersIndexRoute
   '/(example)/_pathlessLayout/_nested-layout/route-a': typeof examplePathlessLayoutNestedLayoutRouteARoute
@@ -416,13 +478,16 @@ export interface FileRouteTypes {
     | ''
     | '/posts'
     | '/users'
+    | '/practice/ahooks'
     | '/deferred'
     | '/redirect'
+    | '/practice'
     | '/sign-in/$'
     | '/sign-up/$'
     | '/posts/$postId'
     | '/users/$userId'
     | '/monitors/nezha'
+    | '/practice/ahooks/ClosureTrap'
     | '/posts/'
     | '/users/'
     | '/route-a'
@@ -432,13 +497,16 @@ export interface FileRouteTypes {
   to:
     | '/'
     | ''
+    | '/practice/ahooks'
     | '/deferred'
     | '/redirect'
+    | '/practice'
     | '/sign-in/$'
     | '/sign-up/$'
     | '/posts/$postId'
     | '/users/$userId'
     | '/monitors/nezha'
+    | '/practice/ahooks/ClosureTrap'
     | '/posts'
     | '/users'
     | '/route-a'
@@ -450,8 +518,10 @@ export interface FileRouteTypes {
     | '/_authed'
     | '/(example)/posts'
     | '/(example)/users'
+    | '/practice/ahooks'
     | '/(example)/deferred'
     | '/(example)/redirect'
+    | '/practice/'
     | '/(auth)/sign-in/$'
     | '/(auth)/sign-up/$'
     | '/(example)/_pathlessLayout'
@@ -459,6 +529,7 @@ export interface FileRouteTypes {
     | '/(example)/posts/$postId'
     | '/(example)/users/$userId'
     | '/_authed/monitors/nezha'
+    | '/practice/ahooks/ClosureTrap'
     | '/(example)/posts/'
     | '/(example)/users/'
     | '/(example)/_pathlessLayout/_nested-layout/route-a'
@@ -472,8 +543,10 @@ export interface RootRouteChildren {
   AuthedRoute: typeof AuthedRouteWithChildren
   examplePostsRouteRoute: typeof examplePostsRouteRouteWithChildren
   exampleUsersRouteRoute: typeof exampleUsersRouteRouteWithChildren
+  PracticeAhooksRouteRoute: typeof PracticeAhooksRouteRouteWithChildren
   exampleDeferredRoute: typeof exampleDeferredRoute
   exampleRedirectRoute: typeof exampleRedirectRoute
+  PracticeIndexRoute: typeof PracticeIndexRoute
   authSignInSplatRoute: typeof authSignInSplatRoute
   authSignUpSplatRoute: typeof authSignUpSplatRoute
   examplePathlessLayoutRoute: typeof examplePathlessLayoutRouteWithChildren
@@ -485,8 +558,10 @@ const rootRouteChildren: RootRouteChildren = {
   AuthedRoute: AuthedRouteWithChildren,
   examplePostsRouteRoute: examplePostsRouteRouteWithChildren,
   exampleUsersRouteRoute: exampleUsersRouteRouteWithChildren,
+  PracticeAhooksRouteRoute: PracticeAhooksRouteRouteWithChildren,
   exampleDeferredRoute: exampleDeferredRoute,
   exampleRedirectRoute: exampleRedirectRoute,
+  PracticeIndexRoute: PracticeIndexRoute,
   authSignInSplatRoute: authSignInSplatRoute,
   authSignUpSplatRoute: authSignUpSplatRoute,
   examplePathlessLayoutRoute: examplePathlessLayoutRouteWithChildren,
@@ -507,8 +582,10 @@ export const routeTree = rootRoute
         "/_authed",
         "/(example)/posts",
         "/(example)/users",
+        "/practice/ahooks",
         "/(example)/deferred",
         "/(example)/redirect",
+        "/practice/",
         "/(auth)/sign-in/$",
         "/(auth)/sign-up/$",
         "/(example)/_pathlessLayout",
@@ -538,11 +615,20 @@ export const routeTree = rootRoute
         "/(example)/users/"
       ]
     },
+    "/practice/ahooks": {
+      "filePath": "practice/ahooks/route.tsx",
+      "children": [
+        "/practice/ahooks/ClosureTrap"
+      ]
+    },
     "/(example)/deferred": {
       "filePath": "(example)/deferred.tsx"
     },
     "/(example)/redirect": {
       "filePath": "(example)/redirect.tsx"
+    },
+    "/practice/": {
+      "filePath": "practice/index.tsx"
     },
     "/(auth)/sign-in/$": {
       "filePath": "(auth)/sign-in.$.tsx"
@@ -575,6 +661,10 @@ export const routeTree = rootRoute
     "/_authed/monitors/nezha": {
       "filePath": "_authed/monitors/nezha.tsx",
       "parent": "/_authed"
+    },
+    "/practice/ahooks/ClosureTrap": {
+      "filePath": "practice/ahooks/ClosureTrap.tsx",
+      "parent": "/practice/ahooks"
     },
     "/(example)/posts/": {
       "filePath": "(example)/posts.index.tsx",

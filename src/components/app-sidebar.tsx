@@ -95,21 +95,22 @@ export const data = {
       ],
     },
     {
-      title: 'Models',
-      url: '#',
+      title: 'Practice',
+      url: '/',
+      isActive: true,
       icon: Bot,
       items: [
         {
-          title: 'Genesis',
-          url: '#',
+          title: 'Ahooks',
+          url: '/practice/ahooks',
         },
         {
           title: 'Explorer',
-          url: '#',
+          url: '/practice/explorer',
         },
         {
           title: 'Quantum',
-          url: '#',
+          url: '/practice/quantum',
         },
       ],
     },
